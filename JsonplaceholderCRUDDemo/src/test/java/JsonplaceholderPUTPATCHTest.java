@@ -11,33 +11,39 @@ public class JsonplaceholderPUTPATCHTest {
     @Test
     public void jsonplaceholderUpdatePUTUser(){
 
-        String jsonBody = "  {\n" +
-                "    \"id\": 1,\n" +
-                "    \"name\": \"Ana Wait PUT\",\n" +
-                "    \"username\": \"Ana PUT\",\n" +
-                "    \"email\": \"ankaPUT@o2.com\",\n" +
-                "    \"address\": {\n" +
-                "      \"street\": \"Blue\",\n" +
-                "      \"suite\": \"Apt. 556\",\n" +
-                "      \"city\": \"Gwenborough\",\n" +
-                "      \"zipcode\": \"92998-3874\",\n" +
-                "      \"geo\": {\n" +
-                "        \"lat\": \"-37.3159\",\n" +
-                "        \"lng\": \"81.1496\"\n" +
-                "      }\n" +
-                "    },\n" +
-                "    \"phone\": \"1-770-736-8031 x56442\",\n" +
-                "    \"website\": \"hildegard.org\",\n" +
-                "    \"company\": {\n" +
-                "      \"name\": \"Romaguera-Crona\",\n" +
-                "      \"catchPhrase\": \"Multi-layered client-server neural-net\",\n" +
-                "      \"bs\": \"harness real-time e-markets\"\n" +
-                "    }\n" +
-                "  }";
+        JSONObject user = new JSONObject();
+        user.put("name", "Ana Wait PUT");
+        user.put("username", "Ana PUT");
+        user.put("email", "ankaPUT@o2.com");
+        user.put("phone", "1-770-736-8031 x56442");
+        user.put("website", "hildegard.org");
+
+        JSONObject geo = new JSONObject();
+        geo.put("lat", "-37.3159");
+        geo.put("lng", "81.1496");
+
+        JSONObject address = new JSONObject();
+        address.put("Street", "Blue");
+        address.put("suite", "Apt. 556");
+        address.put("city", "Gwenborough");
+        address.put("zipcode", "92998-3874");
+        address.put("geo", geo);
+
+        user.put("address", address);
+
+        JSONObject company = new JSONObject();
+        company.put("name", "Romaguera-Crona");
+        company.put("catchPhrase", "Multi-layered client-server neural-net");
+        company.put("bs", "harness real-time e-markets");
+
+        user.put("company", company);
+
+
+        System.out.println(user.toString());
 
         Response response = given()
                 .contentType("application/json")
-                .body(jsonBody)
+                .body(user.toString())
                 .when()
                 .put("https://jsonplaceholder.typicode.com/users/1")
                 .then()
@@ -62,13 +68,9 @@ public class JsonplaceholderPUTPATCHTest {
 
         System.out.println(email);
 
-        String jsonBody = "  {\n" +
-                 "    \"email\": \"ankaPATCH@o2.com\"\n" +
-                 "  }";
-
         Response response = given()
                 .contentType("application/json")
-                .body(jsonBody)
+                .body(email.toString())
                 .when()
                 .patch("https://jsonplaceholder.typicode.com/users/1")
                 .then()
